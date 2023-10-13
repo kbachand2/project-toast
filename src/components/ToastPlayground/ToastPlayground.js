@@ -5,6 +5,7 @@ import Button from '../Button';
 import styles from './ToastPlayground.module.css';
 
 import Toast from '../Toast';
+import ToastShelf from '../ToastShelf';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
@@ -12,9 +13,20 @@ function ToastPlayground() {
   const [message, setMessage] = React.useState('');
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
   const [isToastOpen, setIsToastOpen] = React.useState(false);
+  const [toasts, setToasts] = React.useState([]);
 
 function handleDismiss() {
   setIsToastOpen(false);
+}
+
+function handleAddToast(toast){
+  const newToast = {
+    message,
+    variant,
+    id: Math.random()
+  };
+  const nextToasts = [...toasts, newToast];
+  setToasts(nextToasts);
 }
 
   return (
@@ -24,13 +36,16 @@ function handleDismiss() {
         <h1>Toast Playground</h1>
       </header>
 
-      {isToastOpen &&
-          <Toast 
-            message={message}
-            variant={variant}
-            handleDismiss={handleDismiss}
-          />
-      }
+      <ToastShelf toasts={toasts}>
+      </ToastShelf>
+
+      {/* {isToastOpen &&
+        <Toast 
+          message={message}
+          variant={variant}
+          handleDismiss={handleDismiss}
+        />
+      }  */}
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -86,6 +101,7 @@ function handleDismiss() {
             <Button
               onClick={() => {
                 setIsToastOpen(true);
+                handleAddToast();
               }}
             >Pop Toast!</Button>
           </div>

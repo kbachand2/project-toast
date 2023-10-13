@@ -18,13 +18,21 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ message, variant, handleDismiss }) {
+function Toast({ message, variant, handleDismiss, toasts, setToasts }) {
   const Icon = ICONS_BY_VARIANT[variant];
+  // function handleAddToast = {
+  //   const newToast = {
+  //     variant,
+  //     message,
+  //     id: Math.random();
+  //   };
+  //   const nextToast = [...]
+  // }
+  // const allToasts = [...toasts, newToast];
 
   return (
     <div className={`${styles.toast} ${styles[variant]}`}>
       <div className={styles.iconContainer}>
-        {/* Change based on variant, state has been raised so can access*/}
         <Icon size={24} />
       </div>
       <p className={styles.content}>
