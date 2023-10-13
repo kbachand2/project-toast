@@ -22,7 +22,7 @@ function Toast({ message, variant }) {
   const Icon = ICONS_BY_VARIANT[variant];
 
   return (
-    <div className={`${styles.toast} ${styles.notice}`}>
+    <div className={`${styles.toast} ${styles[variant]}`}>
       <div className={styles.iconContainer}>
         {/* Change based on variant, state has been raised so can access*/}
         <Icon size={24} />
