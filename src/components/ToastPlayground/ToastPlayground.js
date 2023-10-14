@@ -12,14 +12,19 @@ const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 function ToastPlayground() {
   const [message, setMessage] = React.useState('');
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
-  const [isToastOpen, setIsToastOpen] = React.useState(false);
   const [toasts, setToasts] = React.useState([]);
 
-function handleDismiss() {
-  setIsToastOpen(false);
+function handleRemoveToast(id) {
+  const nextToasts = toasts.filter((toastItem) => {
+    return toastItem.id !== id;
+  });
+  setToasts(nextToasts);
+  //write removal code
+  //pass to toastshelf
 }
 
-function handleAddToast(toast){
+function handleAddToast(event){
+  event.preventDefault();
   const newToast = {
     message,
     variant,
@@ -27,6 +32,8 @@ function handleAddToast(toast){
   };
   const nextToasts = [...toasts, newToast];
   setToasts(nextToasts);
+  setMessage('');
+  setVariant(VARIANT_OPTIONS[0]);
 }
 
   return (
@@ -36,7 +43,7 @@ function handleAddToast(toast){
         <h1>Toast Playground</h1>
       </header>
 
-      <ToastShelf toasts={toasts}>
+      <ToastShelf toasts={toasts} handleRemoveToast={handleRemoveToast}>
       </ToastShelf>
 
       {/* {isToastOpen &&
@@ -47,7 +54,10 @@ function handleAddToast(toast){
         />
       }  */}
 
-      <div className={styles.controlsWrapper}>
+      <form 
+        className={styles.controlsWrapper}
+        onSubmit={handleAddToast}
+      >
         <div className={styles.row}>
           <label
             htmlFor="message"
@@ -98,15 +108,12 @@ function handleAddToast(toast){
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <Button
-              onClick={() => {
-                setIsToastOpen(true);
-                handleAddToast();
-              }}
-            >Pop Toast!</Button>
+            <Button>
+              Pop Toast!
+            </Button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
