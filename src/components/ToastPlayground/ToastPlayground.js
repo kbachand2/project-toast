@@ -15,6 +15,8 @@ function ToastPlayground() {
   const [message, setMessage] = React.useState('');
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
 
+
+
 function handleAddToast(event){
   event.preventDefault();
   
@@ -31,14 +33,6 @@ function handleAddToast(event){
       </header>
 
       <ToastShelf/>
-
-      {/* {isToastOpen &&
-        <Toast 
-          message={message}
-          variant={variant}
-          handleDismiss={handleDismiss}
-        />
-      }  */}
 
       <form 
         className={styles.controlsWrapper}
