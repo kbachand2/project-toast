@@ -7,14 +7,7 @@ import React from 'react';
 export const ToastContext = React.createContext();
 
 function ToastProvider({children}) {
-  const [toasts, setToasts] = React.useState([
-    {
-      id: Math.random(),
-      message: 'it works',
-      variant: 'success',
-    }
-
-  ]);
+  const [toasts, setToasts] = React.useState([]);
 
   function createToast(message, variant){
     const nextToasts = [...toasts,
