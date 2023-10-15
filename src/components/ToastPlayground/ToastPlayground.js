@@ -6,32 +6,19 @@ import styles from './ToastPlayground.module.css';
 
 import Toast from '../Toast';
 import ToastShelf from '../ToastShelf';
+import {ToastContext} from '../ToastProvider'
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
+  const { createToast } = React.useContext(ToastContext);
   const [message, setMessage] = React.useState('');
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
-  const [toasts, setToasts] = React.useState([]);
-
-function handleRemoveToast(id) {
-  const nextToasts = toasts.filter((toastItem) => {
-    return toastItem.id !== id;
-  });
-  setToasts(nextToasts);
-  //write removal code
-  //pass to toastshelf
-}
 
 function handleAddToast(event){
   event.preventDefault();
-  const newToast = {
-    message,
-    variant,
-    id: Math.random()
-  };
-  const nextToasts = [...toasts, newToast];
-  setToasts(nextToasts);
+  
+  createToast(message, variant);
   setMessage('');
   setVariant(VARIANT_OPTIONS[0]);
 }
@@ -43,8 +30,7 @@ function handleAddToast(event){
         <h1>Toast Playground</h1>
       </header>
 
-      <ToastShelf toasts={toasts} handleRemoveToast={handleRemoveToast}>
-      </ToastShelf>
+      <ToastShelf/>
 
       {/* {isToastOpen &&
         <Toast 
